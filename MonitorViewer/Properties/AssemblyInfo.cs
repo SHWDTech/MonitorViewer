@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+using System.Security;
 using System.Runtime.InteropServices;
 
 // 有关程序集的一般信息由以下
@@ -8,16 +8,18 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("MonitorViewer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("上海卫东信息科技有限公司")]
 [assembly: AssemblyProduct("MonitorViewer")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+[assembly: AllowPartiallyTrustedCallers()]
+[assembly: SecurityRules(SecurityRuleSet.Level1)]
 
 //将 ComVisible 设置为 false 将使此程序集中的类型
 //对 COM 组件不可见。  如果需要从 COM 访问此程序集中的类型，
 //请将此类型的 ComVisible 特性设置为 true。
-[assembly: ComVisible(false)]
+[assembly: ComVisible(true)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
 [assembly: Guid("e6b0be20-79c3-4c84-b75b-c2472ebca72d")]
@@ -32,5 +34,5 @@ using System.Runtime.InteropServices;
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.22")]
+[assembly: AssemblyFileVersion("1.0.0.22")]
