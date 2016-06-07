@@ -9,25 +9,27 @@ using Newtonsoft.Json.Linq;
 
 namespace MonitorViewer
 {
-    public static class HkAction
+    public static class HikAction
     {
-        private const string ApiUrl = "https://open.ys7.com/api/method";
+        private static string ApiUrl { get; set; }
 
-        private const string AuthAddr = "https://auth.ys7.com";
+        private static string AuthAddr { get; set; }
 
-        private const string PlatformAddr = "https://open.ys7.com";
+        private static string PlatformAddr { get; set; }
 
-        private const string AppKey = "9f88209c239d4bf28156d3f880bb8321";
+        private static string AppKey { get; set; }
 
-        private const string SecretKey = "f013a79dd3c9966123fd408be34c557e";
+        private static string SecretKey {get; set; }
 
-        private const string PhoneNumber = "18701987043";
+        private static string PhoneNumber { get; set; }
 
         private static string AccessToken { get; set; }
 
+        public static string SafeKey { get; set; }
+
         public static bool IsLoaded = false;
 
-        private const string UserId = "106567315865215f";
+        private static string UserId { get; set; }
 
         private static readonly HkSdk.MsgHandler CallBack = HandlerWork;
 
@@ -42,6 +44,8 @@ namespace MonitorViewer
         public static readonly List<string> CameraList = new List<string>();
 
         public static readonly List<string> CameraIdList = new List<string>();
+
+        public static int Speed { get; set; } = 4;
 
         public static int InitLib()
         {
@@ -58,6 +62,19 @@ namespace MonitorViewer
             if (result != 0) return result;
 
             return result;
+        }
+
+        public static int SetUpParams(Dictionary<string, string> paramDictionary)
+        {
+            ApiUrl = paramDictionary["ApiUrl"];
+            AuthAddr = paramDictionary["AuthAddr"];
+            PlatformAddr = paramDictionary["PlatformAddr"];
+            AppKey = paramDictionary["AppKey"];
+            SecretKey = paramDictionary["SecretKey"];
+            PhoneNumber = paramDictionary["PhoneNumber"];
+            UserId = paramDictionary["UserId"];
+
+            return 0;
         }
 
         public static int Close() => CloseAllocion(_sessionId);

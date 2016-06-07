@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.JScript;
@@ -13,28 +14,19 @@ namespace MonitorViewer
         public MonitorViewer()
         {
             InitializeComponent();
-            HkAction.InitLib();
         }
 
-        public ArrayObject CameraList => GlobalObject.Array.ConstructArray(HkAction.GetCameraList());
+        public ArrayObject CameraList => GlobalObject.Array.ConstructArray(HikAction.GetCameraList());
 
-        public ArrayObject CameraIdList => GlobalObject.Array.ConstructArray(HkAction.GetCameraIdList());
+        public ArrayObject CameraIdList => GlobalObject.Array.ConstructArray(HikAction.GetCameraIdList());
 
         public int Speed
         {
-            get { return HikCameraControl.Speed; }
-            set { HikCameraControl.Speed = value; }
-        }
-
-        public int ChannelNumber
-        {
-            get { return HikCameraControl.ChannelNumber; }
-            set { HikCameraControl.ChannelNumber = value; }
+            get { return HikAction.Speed; }
+            set { HikAction.Speed = value; }
         }
 
         private string _cameraId;
-
-        private string _safeKey;
 
         private bool _setuped;
 
@@ -115,26 +107,65 @@ namespace MonitorViewer
 
         #endregion
 
-        public void SetupCamera(string cameraId, string safeKey, string deviceSerial)
+        public int SetConnectServer(string server)
         {
-            _cameraId = cameraId;
-            _safeKey = safeKey;
-            HikCameraControl.DeviceSerial = deviceSerial;
+            try
+            {
+                var paramDictionary = ServerConnecter.GetCameraInfomation(server);
+                HikAction.SetUpParams(paramDictionary);
+                var result = HikAction.InitLib();
+                return result;
+            }
+            catch (Exception)
+            {
+                return -1005;
+            }
+        }
 
-            _setuped = true;
+        public int SetupCamera(string cameraId)
+        {
+            try
+            {
+                var safeKey = ServerConnecter.GetSafeKey(cameraId);
+                safeKey = safeKey.Replace("\"", string.Empty);
+                if (!string.IsNullOrWhiteSpace(safeKey))
+                {
+                    HikAction.SafeKey = safeKey;
+                    _setuped = true;
+                    var camera = HikAction.CameraList.FirstOrDefault(obj => obj.ToString().Contains(cameraId));
+                    if (camera != null)
+                    {
+                        var index = HikAction.CameraList.IndexOf(camera);
+                        if (index < 0) return -1006;
+                        _cameraId = HikAction.CameraIdList[index];
+                    }
+                    else
+                    {
+                        return -1003;
+                    }
+
+                    return 0;
+                }
+            }
+            catch (Exception)
+            {
+                return -1004;
+            }
+            
+            return -1002;
         }
 
         public int StartMonitor()
         {
             if (!_setuped) return -99;
-            return HkAction.StartPlay(ViewerBox.Handle, _cameraId, _safeKey);
+            return HikAction.StartPlay(ViewerBox.Handle, _cameraId, HikAction.SafeKey);
         }
 
         public int StopMonitor()
         {
             if (!string.IsNullOrWhiteSpace(_cameraId))
             {
-                return HkAction.StopPlay();
+                return HikAction.StopPlay();
             }
 
             return -100;
@@ -153,7 +184,7 @@ namespace MonitorViewer
                 return -98;
             }
 
-            return HkAction.PtzCtrl(_cameraId, _ptzCommand, PTZACtion.START, Speed);
+            return HikAction.PtzCtrl(_cameraId, _ptzCommand, PTZACtion.START, Speed);
         }
 
         /// <summary>
@@ -161,7 +192,7 @@ namespace MonitorViewer
         /// </summary>
         /// <returns></returns>
         public int StopControlPlatform()
-            => HkAction.PtzCtrl(_cameraId, _ptzCommand, PTZACtion.STOP, Speed);
+            => HikAction.PtzCtrl(_cameraId, _ptzCommand, PTZACtion.STOP, Speed);
 
         /// <summary>
         /// 将字符串转换为云台指令
@@ -180,5 +211,8 @@ namespace MonitorViewer
 
             return cmd;
         }
+
+        public bool CapturePicture()
+            => HikAction.CapturePicture("");
     }
 }
