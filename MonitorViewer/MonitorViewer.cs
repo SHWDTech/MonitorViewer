@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -16,8 +17,14 @@ namespace MonitorViewer
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 获取摄像头列表
+        /// </summary>
         public ArrayObject CameraList => GlobalObject.Array.ConstructArray(HikAction.GetCameraList());
 
+        /// <summary>
+        /// 获取摄像头ID列表
+        /// </summary>
         public ArrayObject CameraIdList => GlobalObject.Array.ConstructArray(HikAction.GetCameraIdList());
 
         public int Speed
@@ -26,10 +33,24 @@ namespace MonitorViewer
             set { HikAction.Speed = value; }
         }
 
+        /// <summary>
+        /// 摄像头ID
+        /// </summary>
         private string _cameraId;
 
+        /// <summary>
+        /// 摄像头产品ID
+        /// </summary>
+        public static string CameraProductId { get; set; }
+
+        /// <summary>
+        /// 是否已完成初始化设置
+        /// </summary>
         private bool _setuped;
 
+        /// <summary>
+        /// 云台控制命令
+        /// </summary>
         private PTZCommand _ptzCommand;
 
         #region IObjectSafety 成员
@@ -107,32 +128,46 @@ namespace MonitorViewer
 
         #endregion
 
+        /// <summary>
+        /// 设置连接服务器
+        /// </summary>
+        /// <param name="server"></param>
+        /// <returns></returns>
         public int SetConnectServer(string server)
         {
             try
             {
-                var paramDictionary = ServerConnecter.GetCameraInfomation(server);
+                if (!string.IsNullOrWhiteSpace(ServerConnecter.Server)) return 0;
+                ServerConnecter.Server = server;
+                var paramDictionary = ServerConnecter.GetCameraInfomation();
                 HikAction.SetUpParams(paramDictionary);
                 var result = HikAction.InitLib();
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return -1005;
             }
         }
 
-        public int SetupCamera(string cameraId)
+        /// <summary>
+        /// 初始化摄像头连接参数
+        /// </summary>
+        /// <param name="cameraProdectId"></param>
+        /// <returns></returns>
+        public int SetupCamera(string cameraProdectId)
         {
             try
             {
-                var safeKey = ServerConnecter.GetSafeKey(cameraId);
+                CameraProductId = cameraProdectId;
+                var safeKey = ServerConnecter.GetSafeKey(CameraProductId);
                 safeKey = safeKey.Replace("\"", string.Empty);
                 if (!string.IsNullOrWhiteSpace(safeKey))
                 {
                     HikAction.SafeKey = safeKey;
                     _setuped = true;
-                    var camera = HikAction.CameraList.FirstOrDefault(obj => obj.ToString().Contains(cameraId));
+                    var camera = HikAction.CameraList.FirstOrDefault(obj => obj.ToString().Contains(CameraProductId));
                     if (camera != null)
                     {
                         var index = HikAction.CameraList.IndexOf(camera);
@@ -155,12 +190,20 @@ namespace MonitorViewer
             return -1002;
         }
 
+        /// <summary>
+        /// 开始预览
+        /// </summary>
+        /// <returns></returns>
         public int StartMonitor()
         {
             if (!_setuped) return -99;
             return HikAction.StartPlay(ViewerBox.Handle, _cameraId, HikAction.SafeKey);
         }
 
+        /// <summary>
+        /// 停止预览
+        /// </summary>
+        /// <returns></returns>
         public int StopMonitor()
         {
             if (!string.IsNullOrWhiteSpace(_cameraId))
@@ -212,7 +255,23 @@ namespace MonitorViewer
             return cmd;
         }
 
+        /// <summary>
+        /// 拍摄照片
+        /// </summary>
+        /// <returns></returns>
         public bool CapturePicture()
-            => HikAction.CapturePicture("");
+        {
+            var fileName = @"d:\CameraPicture\" + $"{DateTime.Now.ToString("yyyyMMddhhmmssfff")}.jpg";
+            var picResult = HikAction.CapturePicture(fileName);
+            if(!picResult) return false;
+
+            if (!File.Exists(fileName)) return false;
+
+            var fileBytes = File.ReadAllBytes(fileName);
+
+            picResult = ServerConnecter.PostCapturePicture(fileBytes);
+
+            return picResult;
+        }
     }
 }
