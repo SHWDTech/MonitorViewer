@@ -27,6 +27,11 @@ namespace MonitorViewer
         /// </summary>
         public ArrayObject CameraIdList => GlobalObject.Array.ConstructArray(HikAction.GetCameraIdList());
 
+        /// <summary>
+        /// 图片储存目录
+        /// </summary>
+        private const string PicUrl = "c:\\CameraPicture";
+
         public int Speed
         {
             get { return HikAction.Speed; }
@@ -156,7 +161,7 @@ namespace MonitorViewer
         /// </summary>
         /// <param name="cameraProdectId"></param>
         /// <returns></returns>
-        public int SetupCamera(string cameraProdectId)
+        public string SetupCamera(string cameraProdectId)
         {
             try
             {
@@ -171,23 +176,23 @@ namespace MonitorViewer
                     if (camera != null)
                     {
                         var index = HikAction.CameraList.IndexOf(camera);
-                        if (index < 0) return -1006;
+                        if (index < 0) return "-1006";
                         _cameraId = HikAction.CameraIdList[index];
                     }
                     else
                     {
-                        return -1003;
+                        return "-1003";
                     }
 
-                    return 0;
+                    return "0";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return -1004;
+                return ex.Message + $"Server:{ServerConnecter.Server}";
             }
-            
-            return -1002;
+
+            return "-1002";
         }
 
         /// <summary>
@@ -261,15 +266,28 @@ namespace MonitorViewer
         /// <returns></returns>
         public bool CapturePicture()
         {
-            var fileName = @"d:\CameraPicture\" + $"{DateTime.Now.ToString("yyyyMMddhhmmssfff")}.jpg";
+            var fileName = $"{PicUrl}\\{DateTime.Now.ToString("yyyyMMddhhmmssfff")}.jpg";
+            if (!Directory.Exists(PicUrl))
+            {
+                try
+                {
+                    Directory.CreateDirectory(PicUrl);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
             var picResult = HikAction.CapturePicture(fileName);
-            if(!picResult) return false;
+            if (!picResult) return false;
 
             if (!File.Exists(fileName)) return false;
 
             var fileBytes = File.ReadAllBytes(fileName);
 
             picResult = ServerConnecter.PostCapturePicture(fileBytes);
+
+            File.Delete(fileName);
 
             return picResult;
         }
