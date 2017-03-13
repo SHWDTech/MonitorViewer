@@ -32,6 +32,8 @@ namespace MonitorViewer
         /// </summary>
         private const string PicUrl = "c:\\CameraPicture";
 
+        public string CurrentServer => ServerConnecter.Server;
+
         public int Speed
         {
             get { return HikAction.Speed; }
@@ -142,7 +144,6 @@ namespace MonitorViewer
         {
             try
             {
-                if (!string.IsNullOrWhiteSpace(ServerConnecter.Server)) return 0;
                 ServerConnecter.Server = server;
                 var paramDictionary = ServerConnecter.GetCameraInfomation();
                 HikAction.SetUpParams(paramDictionary);
@@ -266,7 +267,7 @@ namespace MonitorViewer
         /// <returns></returns>
         public bool CapturePicture()
         {
-            var fileName = $"{PicUrl}\\{DateTime.Now.ToString("yyyyMMddhhmmssfff")}.jpg";
+            var fileName = $"{PicUrl}\\{DateTime.Now:yyyyMMddhhmmssfff}.jpg";
             if (!Directory.Exists(PicUrl))
             {
                 try
@@ -290,6 +291,12 @@ namespace MonitorViewer
             File.Delete(fileName);
 
             return picResult;
+        }
+
+        public new void Dispose()
+        {
+            HkSdk.OpenSDK_FiniLib();
+            base.Dispose();
         }
     }
 }

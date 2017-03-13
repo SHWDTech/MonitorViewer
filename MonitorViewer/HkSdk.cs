@@ -65,10 +65,17 @@ namespace MonitorViewer
 
         //回调函数格式
         public delegate void OpenSdkDataCallBack(CallBackDateType dateType, IntPtr dateContent, int dataLen, string pUser);
+
         public static void DataCallBackHandler(CallBackDateType dataType, IntPtr dataContent, int dataLen, string pUser)
         {
 
         }
+
+        [DllImport(@"OpenNetStream.dll")]
+        public static extern string OpenSDK_GetLastErrorDesc();
+
+        [DllImport(@"OpenNetStream.dll")]
+        public static extern int OpenSDK_GetLastErrorCode();
 
         //数据回调设置
         public enum CallBackDateType

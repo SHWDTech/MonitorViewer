@@ -19,7 +19,7 @@ namespace MonitorViewer
 
         private static string AppKey { get; set; }
 
-        private static string SecretKey {get; set; }
+        private static string SecretKey { get; set; }
 
         private static string PhoneNumber { get; set; }
 
@@ -194,19 +194,33 @@ namespace MonitorViewer
 
         private static int FatchCameraList()
         {
-            IntPtr iMessage;
-            int iLength;
+            var page = 0;
+            int result;
+            int readCount;
+            var finalArray = new JArray();
 
-            int result = HkSdk.OpenSDK_Data_GetDevList(AccessToken, 0, 50, out iMessage, out iLength);
-            var resultStr = Marshal.PtrToStringAnsi(iMessage);
+            do
+            {
+                IntPtr iMessage;
+                int iLength;
+                result = HkSdk.OpenSDK_Data_GetDevList(AccessToken, page, 256, out iMessage, out iLength);
+                var resultStr = Marshal.PtrToStringAnsi(iMessage);
 
-            if (result != 0) return result;
+                if (result != 0) return result;
 
-            var jsonObj = JObject.Parse(resultStr);
+                var jsonObj = JObject.Parse(resultStr);
 
-            var cameraList = JArray.Parse(jsonObj["cameraList"].ToString());
+                var cameraList = JArray.Parse(jsonObj["cameraList"].ToString());
+                readCount = cameraList.Count;
+                foreach (var cam in cameraList)
+                {
+                    finalArray.Add(cam);
+                }
+                page++;
+            } while (readCount > 0);
 
-            foreach (var cam in cameraList)
+
+            foreach (var cam in finalArray)
             {
                 var cameraObj = JObject.Parse(cam.ToString());
                 CameraList.Add(cameraObj["cameraName"].ToString());
