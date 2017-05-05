@@ -8,8 +8,8 @@ namespace MonitorViewCommand
         static void Main(string[] args)
         {
             var viewer = new MonitorViewer.MonitorViewer();
-            Console.WriteLine(viewer.SetConnectServer("120.55.112.10"));
-            Console.WriteLine(viewer.SetupCamera("657414387"));
+            Console.WriteLine(viewer.SetConnectServer("139.196.194.156"));
+            Console.WriteLine(viewer.SetupCamera("641888332"));
             var ret = viewer.StartMonitor();
             if (ret != 0)
             {

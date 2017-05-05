@@ -36,8 +36,8 @@ namespace MonitorViewer
 
         public int Speed
         {
-            get { return HikAction.Speed; }
-            set { HikAction.Speed = value; }
+            get => HikAction.Speed;
+            set => HikAction.Speed = value;
         }
 
         /// <summary>
@@ -250,8 +250,7 @@ namespace MonitorViewer
         /// <returns></returns>
         private PTZCommand GetPtzCommand(string dir)
         {
-            PTZCommand cmd;
-            var success = Enum.TryParse(dir, false, out cmd);
+            var success = Enum.TryParse(dir, false, out PTZCommand cmd);
 
             if (!success)
             {
