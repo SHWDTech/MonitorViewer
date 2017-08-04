@@ -28,29 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ViewerBox = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(ViewerBox)).BeginInit();
-            SuspendLayout();
+            this.ViewerBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.ViewerBox)).BeginInit();
+            this.SuspendLayout();
             // 
             // ViewerBox
             // 
-            ViewerBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            ViewerBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            ViewerBox.Location = new System.Drawing.Point(0, 0);
-            ViewerBox.Name = "ViewerBox";
-            ViewerBox.Size = new System.Drawing.Size(150, 150);
-            ViewerBox.TabIndex = 0;
-            ViewerBox.TabStop = false;
+            this.ViewerBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ViewerBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ViewerBox.Location = new System.Drawing.Point(0, 0);
+            this.ViewerBox.Name = "ViewerBox";
+            this.ViewerBox.Size = new System.Drawing.Size(150, 163);
+            this.ViewerBox.TabIndex = 0;
+            this.ViewerBox.TabStop = false;
             // 
             // MonitorViewer
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            Controls.Add(ViewerBox);
-            Name = "MonitorViewer";
-            ((System.ComponentModel.ISupportInitialize)(ViewerBox)).EndInit();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.Controls.Add(this.ViewerBox);
+            this.Name = "MonitorViewer";
+            this.Size = new System.Drawing.Size(150, 163);
+            ((System.ComponentModel.ISupportInitialize)(this.ViewerBox)).EndInit();
+            this.ResumeLayout(false);
 
         }
 

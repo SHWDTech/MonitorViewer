@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.JScript;
 using TestActiveXControl;
@@ -15,6 +18,7 @@ namespace MonitorViewer
         public MonitorViewer()
         {
             InitializeComponent();
+            ViewerBox.Paint += WdCameraViewerPaint;
         }
 
         /// <summary>
@@ -49,6 +53,18 @@ namespace MonitorViewer
         /// 摄像头产品ID
         /// </summary>
         public static string CameraProductId { get; set; }
+
+        public static int DevId { get; set; }
+
+        private string _displayMessage = string.Empty;
+
+        private readonly StringFormat _displayStringFormat = new StringFormat
+        {
+            LineAlignment = StringAlignment.Far,
+            Alignment = StringAlignment.Near
+        };
+
+        private readonly Brush _displayBrush = Brushes.White;
 
         /// <summary>
         /// 是否已完成初始化设置
@@ -196,6 +212,39 @@ namespace MonitorViewer
             return "-1002";
         }
 
+        public string SetupDevId(string devId)
+        {
+            DevId = int.Parse(devId);
+            Task.Factory.StartNew(() =>
+            {
+                while (true)
+                {
+                    var dataXmlStr = ServerConnecter.FetchData(DevId);
+                    var data = XmlSerializerHelper.DeSerialize<DeviceRecentData>(dataXmlStr);
+                    _displayMessage = $"{"PM10".PadRight(4)}:{data.Tp} ug/m³ {"噪声".PadRight(3)}:{double.Parse(data.Db):F1} db\r\n" +
+                                      $"{"风速".PadRight(3)}:{double.Parse(data.WindSpeed):F1} m/s  {"风向".PadRight(3)}:{WindDirectionString(double.Parse(data.WindDirection))}\r\n" +
+                                      $"{"温度".PadRight(3)}:{double.Parse(data.Temp):F1} ℃ {"湿度".PadRight(3)}:{double.Parse(data.Humidity):F1} %";
+                    ViewerBox.Invalidate();
+                    Thread.Sleep(30000);
+                }
+            });
+            return "0";
+        }
+
+        /// <summary>
+        /// PICTUREBOX控件响应PAINT事件显示问题提示。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WdCameraViewerPaint(object sender, PaintEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_displayMessage)) return;
+            using (var myFont = new Font("simsun", 18))
+            {
+                e.Graphics.DrawString(_displayMessage, myFont, _displayBrush, ClientRectangle, _displayStringFormat);
+            }
+        }
+
         /// <summary>
         /// 开始预览
         /// </summary>
@@ -290,6 +339,28 @@ namespace MonitorViewer
             File.Delete(fileName);
 
             return picResult;
+        }
+
+        public string WindDirectionString(double dir)
+        {
+            if (dir >= 348.76 || dir <= 11.25) return "北";
+            if (dir >= 11.26 && dir<= 33.75) return "北东北";
+            if (dir >= 33.76 && dir <= 56.25) return "东北";
+            if (dir >= 56.26 && dir <= 78.75) return "东东北";
+            if (dir >= 78.76 && dir <= 101.25) return "东";
+            if (dir >= 101.26 && dir <= 123.75) return "东东南";
+            if (dir >= 123.76 && dir <= 146.25) return "东南";
+            if (dir >= 146.26 && dir <= 168.75) return "南东南";
+            if (dir >= 168.76 && dir <= 191.25) return "南";
+            if (dir >= 191.26 && dir <= 213.75) return "南西南";
+            if (dir >= 213.76 && dir <= 236.25) return "西南";
+            if (dir >= 236.26 && dir <= 258.75) return "西西南";
+            if (dir >= 258.76 && dir <= 281.25) return "西";
+            if (dir >= 281.26 && dir <= 303.75) return "西西北";
+            if (dir >= 303.76 && dir <= 326.25) return "西北";
+            if (dir >= 326.26 && dir <= 348.75) return "北西北";
+
+            return "未知";
         }
 
         public new void Dispose()

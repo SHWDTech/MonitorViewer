@@ -123,12 +123,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_700968C792F7E6FB0024A723F13C8299"
-        "OwnerKey" = "8:_0842EAC076814B9EA0DBC68642C9857A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_815552F3CDDC406C9E52989EE713F06A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -346,6 +340,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
     }
@@ -747,26 +749,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_700968C792F7E6FB0024A723F13C8299"
-            {
-            "SourcePath" = "8:MonitorViewer.tlb"
-            "TargetName" = "8:MonitorViewer.tlb"
-            "Tag" = "8:"
-            "Folder" = "8:_2E774CD86F194E669D6B5AEE5A86896D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:2"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_815552F3CDDC406C9E52989EE713F06A"
@@ -1276,15 +1258,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WdMonitorView"
-        "ProductCode" = "8:{FB55ADB0-7B79-4E7F-B36F-2C571002160F}"
-        "PackageCode" = "8:{EE427083-345A-45F8-B4DD-2DD302E81444}"
+        "ProductCode" = "8:{2DDE342A-611F-4945-B4F4-A828D3C8AD8A}"
+        "PackageCode" = "8:{7A1A1FC9-52DE-4F8E-994D-32ABCA268900}"
         "UpgradeCode" = "8:{D057ADD1-4BE6-45D8-963E-3F8EA4038577}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.9"
+        "ProductVersion" = "8:1.0.10"
         "Manufacturer" = "8:SHWDTech"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

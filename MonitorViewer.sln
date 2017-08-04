@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorViewer", "MonitorViewer\MonitorViewer.csproj", "{E6B0BE20-79C3-4C84-B75B-C2472EBCA72D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorViewCommand", "MonitorViewCommand\MonitorViewCommand.csproj", "{302BCD00-235E-49D9-B00B-E51D5E79764B}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "WdMonitorView", "WdMonitorView\WdMonitorView.vdproj", "{97024FBA-760F-4D6F-9DBA-3628EE840AD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorViewerTestForm", "MonitorViewerTestForm\MonitorViewerTestForm.csproj", "{1FF06212-A687-4F16-A2B7-A0DF54739672}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,14 @@ Global
 		{97024FBA-760F-4D6F-9DBA-3628EE840AD2}.Debug|x86.ActiveCfg = Debug
 		{97024FBA-760F-4D6F-9DBA-3628EE840AD2}.Release|Any CPU.ActiveCfg = Release
 		{97024FBA-760F-4D6F-9DBA-3628EE840AD2}.Release|x86.ActiveCfg = Release
+		{1FF06212-A687-4F16-A2B7-A0DF54739672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FF06212-A687-4F16-A2B7-A0DF54739672}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FF06212-A687-4F16-A2B7-A0DF54739672}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1FF06212-A687-4F16-A2B7-A0DF54739672}.Debug|x86.Build.0 = Debug|Any CPU
+		{1FF06212-A687-4F16-A2B7-A0DF54739672}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FF06212-A687-4F16-A2B7-A0DF54739672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FF06212-A687-4F16-A2B7-A0DF54739672}.Release|x86.ActiveCfg = Release|Any CPU
+		{1FF06212-A687-4F16-A2B7-A0DF54739672}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

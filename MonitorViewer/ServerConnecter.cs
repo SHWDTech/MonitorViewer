@@ -89,5 +89,13 @@ namespace MonitorViewer
 
             return null;
         }
+
+        public static string FetchData(int devId)
+        {
+            var requestParams = new Dictionary<string, object> { { "requestUrl", $"DeviceLastData?devId={devId}" } };
+            var jsonParams = ServerRequest("GET", requestParams);
+
+            return jsonParams;
+        }
     }
 }
