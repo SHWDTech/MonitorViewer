@@ -1258,15 +1258,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WdMonitorView"
-        "ProductCode" = "8:{2DDE342A-611F-4945-B4F4-A828D3C8AD8A}"
-        "PackageCode" = "8:{7A1A1FC9-52DE-4F8E-994D-32ABCA268900}"
+        "ProductCode" = "8:{59817508-A255-47D2-9308-8F9F5F34B295}"
+        "PackageCode" = "8:{C55A498F-B70F-4A92-B7B1-BE3589879C95}"
         "UpgradeCode" = "8:{D057ADD1-4BE6-45D8-963E-3F8EA4038577}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.10"
+        "ProductVersion" = "8:1.0.11"
         "Manufacturer" = "8:SHWDTech"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1780,7 +1780,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_0842EAC076814B9EA0DBC68642C9857A"
             {
-            "SourcePath" = "8:..\\MonitorViewer\\obj\\Debug\\MonitorViewer.dll"
+            "SourcePath" = "8:..\\MonitorViewer\\obj\\Release\\MonitorViewer.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2E774CD86F194E669D6B5AEE5A86896D"

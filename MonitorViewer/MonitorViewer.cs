@@ -221,15 +221,13 @@ namespace MonitorViewer
                 while (true)
                 {
                     var dataXmlStr = ServerConnecter.FetchData(DevId);
-                    if (string.IsNullOrWhiteSpace(dataXmlStr))
+                    if (!string.IsNullOrWhiteSpace(dataXmlStr))
                     {
-                        Thread.Sleep(30000);
-                        continue;
+                        var data = XmlSerializerHelper.DeSerialize<DeviceRecentData>(dataXmlStr);
+                        _displayMessage = $"{"PM10".PadRight(4)}:{data.Tp} ug/m³ {"噪声".PadRight(3)}:{double.Parse(data.Db):F1} db\r\n" +
+                                          $"{"风速".PadRight(3)}:{double.Parse(data.WindSpeed):F1} m/s  {"风向".PadRight(3)}:{WindDirectionString(double.Parse(data.WindDirection))}\r\n" +
+                                          $"{"温度".PadRight(3)}:{double.Parse(data.Temp):F1} ℃ {"湿度".PadRight(3)}:{double.Parse(data.Humidity):F1} %";
                     }
-                    var data = XmlSerializerHelper.DeSerialize<DeviceRecentData>(dataXmlStr);
-                    _displayMessage = $"{"PM10".PadRight(4)}:{data.Tp} ug/m³ {"噪声".PadRight(3)}:{double.Parse(data.Db):F1} db\r\n" +
-                                      $"{"风速".PadRight(3)}:{double.Parse(data.WindSpeed):F1} m/s  {"风向".PadRight(3)}:{WindDirectionString(double.Parse(data.WindDirection))}\r\n" +
-                                      $"{"温度".PadRight(3)}:{double.Parse(data.Temp):F1} ℃ {"湿度".PadRight(3)}:{double.Parse(data.Humidity):F1} %";
                     ViewerBox.Invalidate();
                     Thread.Sleep(30000);
                 }
