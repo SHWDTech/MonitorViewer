@@ -66,6 +66,8 @@ namespace MonitorViewer
 
         private readonly Brush _displayBrush = Brushes.White;
 
+        private bool _isPrewing;
+
         /// <summary>
         /// 是否已完成初始化设置
         /// </summary>
@@ -216,22 +218,7 @@ namespace MonitorViewer
         {
             if (string.IsNullOrWhiteSpace(devId)) return "-1";
             DevId = int.Parse(devId);
-            Task.Factory.StartNew(() =>
-            {
-                while (true)
-                {
-                    var dataXmlStr = ServerConnecter.FetchData(DevId);
-                    if (!string.IsNullOrWhiteSpace(dataXmlStr))
-                    {
-                        var data = XmlSerializerHelper.DeSerialize<DeviceRecentData>(dataXmlStr);
-                        _displayMessage = $"{"PM10".PadRight(4)}:{data.Tp} ug/m³ {"噪声".PadRight(3)}:{double.Parse(data.Db):F1} db\r\n" +
-                                          $"{"风速".PadRight(3)}:{double.Parse(data.WindSpeed):F1} m/s  {"风向".PadRight(3)}:{WindDirectionString(double.Parse(data.WindDirection))}\r\n" +
-                                          $"{"温度".PadRight(3)}:{double.Parse(data.Temp):F1} ℃ {"湿度".PadRight(3)}:{double.Parse(data.Humidity):F1} %";
-                    }
-                    ViewerBox.Invalidate();
-                    Thread.Sleep(30000);
-                }
-            });
+            
             return "0";
         }
 
@@ -243,7 +230,7 @@ namespace MonitorViewer
         private void WdCameraViewerPaint(object sender, PaintEventArgs e)
         {
             if (string.IsNullOrEmpty(_displayMessage)) return;
-            using (var myFont = new Font("simsun", 18))
+            using (var myFont = new Font("simsun", 20))
             {
                 e.Graphics.DrawString(_displayMessage, myFont, _displayBrush, ClientRectangle, _displayStringFormat);
             }
@@ -256,7 +243,32 @@ namespace MonitorViewer
         public int StartMonitor()
         {
             if (!_setuped) return -99;
-            return HikAction.StartPlay(ViewerBox.Handle, _cameraId, HikAction.SafeKey);
+            var ret = HikAction.StartPlay(ViewerBox.Handle, _cameraId, HikAction.SafeKey);
+            if (ret == 0)
+            {
+                _isPrewing = true;
+                StartDisplay();
+            }
+            return ret;
+        }
+
+        private void StartDisplay()
+        {
+            Task.Factory.StartNew(() =>
+            {
+                while (_isPrewing)
+                {
+                    var dataXmlStr = ServerConnecter.FetchData(DevId);
+                    if (!string.IsNullOrWhiteSpace(dataXmlStr))
+                    {
+                        var data = XmlSerializerHelper.DeSerialize<DeviceRecentData>(dataXmlStr);
+                        _displayMessage =
+                            $"{"PM10".PadRight(4)}:{data.Tp} ug/m³\r\n";
+                    }
+                    ViewerBox.Invalidate();
+                    Thread.Sleep(30000);
+                }
+            });
         }
 
         /// <summary>
@@ -267,7 +279,14 @@ namespace MonitorViewer
         {
             if (!string.IsNullOrWhiteSpace(_cameraId))
             {
-                return HikAction.StopPlay();
+                var ret = HikAction.StopPlay();
+                if (ret == 0)
+                {
+                    _isPrewing = false;
+                    _displayMessage = string.Empty;
+                    ViewerBox.Invalidate();
+                }
+                return ret;
             }
 
             return -100;
