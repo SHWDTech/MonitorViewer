@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.JScript;
+using Newtonsoft.Json;
 using TestActiveXControl;
 
 namespace MonitorViewer
@@ -30,6 +29,11 @@ namespace MonitorViewer
         /// 获取摄像头ID列表
         /// </summary>
         public ArrayObject CameraIdList => GlobalObject.Array.ConstructArray(HikAction.GetCameraIdList());
+
+        /// <summary>
+        /// 回调信息查询结果
+        /// </summary>
+        public string PlayBackSearchResult => JsonConvert.SerializeObject(HikAction.PlayBackSearchResults);
 
         /// <summary>
         /// 图片储存目录
@@ -187,11 +191,11 @@ namespace MonitorViewer
                 CameraProductId = cameraProdectId;
                 var safeKey = ServerConnecter.GetSafeKey(CameraProductId);
                 safeKey = safeKey.Replace("\"", string.Empty);
-                if (!string.IsNullOrWhiteSpace(safeKey))
+                if (!string.IsNullOrEmpty(safeKey))
                 {
                     HikAction.SafeKey = safeKey;
                     _setuped = true;
-                    var camera = HikAction.CameraList.FirstOrDefault(obj => obj.ToString().Contains(CameraProductId));
+                    var camera = HikAction.CameraList.Find(obj => obj.ToString().Contains(CameraProductId));
                     if (camera != null)
                     {
                         var index = HikAction.CameraList.IndexOf(camera);
@@ -216,7 +220,7 @@ namespace MonitorViewer
 
         public string SetupDevId(string devId)
         {
-            if (string.IsNullOrWhiteSpace(devId)) return "-1";
+            if (string.IsNullOrEmpty(devId)) return "-1";
             DevId = int.Parse(devId);
             
             return "0";
@@ -252,14 +256,21 @@ namespace MonitorViewer
             return ret;
         }
 
+        public int StartPlayBack(string startTime, string endTime)
+        {
+            var ret = HikAction.StartPlayBack(ViewerBox.Handle, _cameraId, HikAction.SafeKey,
+                startTime, endTime);
+            return ret;
+        }
+
         private void StartDisplay()
         {
-            Task.Factory.StartNew(() =>
+            var thread = new Thread(() =>
             {
                 while (_isPrewing)
                 {
                     var dataXmlStr = ServerConnecter.FetchData(DevId);
-                    if (!string.IsNullOrWhiteSpace(dataXmlStr))
+                    if (!string.IsNullOrEmpty(dataXmlStr))
                     {
                         var data = XmlSerializerHelper.DeSerialize<DeviceRecentData>(dataXmlStr);
                         _displayMessage =
@@ -268,7 +279,12 @@ namespace MonitorViewer
                     ViewerBox.Invalidate();
                     Thread.Sleep(30000);
                 }
-            });
+            })
+            {
+                IsBackground = true
+            };
+            
+            thread.Start();
         }
 
         /// <summary>
@@ -277,7 +293,7 @@ namespace MonitorViewer
         /// <returns></returns>
         public int StopMonitor()
         {
-            if (!string.IsNullOrWhiteSpace(_cameraId))
+            if (!string.IsNullOrEmpty(_cameraId))
             {
                 var ret = HikAction.StopPlay();
                 if (ret == 0)
@@ -322,15 +338,16 @@ namespace MonitorViewer
         /// <returns></returns>
         private PTZCommand GetPtzCommand(string dir)
         {
-            var success = Enum.TryParse(dir, false, out PTZCommand cmd);
-
-            if (!success)
-            {
-                cmd = PTZCommand.UNKNOW;
-            }
+            var cmd = (PTZCommand)Enum.Parse(typeof(PTZCommand), dir);
 
             return cmd;
         }
+
+        public int GetLastErrorCode()
+            => HikAction.GetLastErrorCode();
+
+        public int StartSearch(string startTime, string endTime)
+            => HikAction.StartSearch(_cameraId, startTime, endTime);
 
         /// <summary>
         /// 拍摄照片

@@ -9,6 +9,8 @@ using Newtonsoft.Json.Linq;
 
 namespace MonitorViewer
 {
+    public delegate void SearchPlaybackEventHandler(PlayBackSearchResult args);
+
     public static class HikAction
     {
         private static string ApiUrl { get; set; }
@@ -46,6 +48,10 @@ namespace MonitorViewer
         public static readonly List<string> CameraIdList = new List<string>();
 
         public static int Speed { get; set; } = 4;
+
+        public static PlayBackSearchResult PlayBackSearchResults { get; private set; }
+
+        public static event SearchPlaybackEventHandler OnSearchPlaybackGetResult;
 
         public static int InitLib()
         {
@@ -99,7 +105,7 @@ namespace MonitorViewer
 
         public static bool CapturePicture(string fileName)
         {
-            if (!string.IsNullOrWhiteSpace(fileName))
+            if (!string.IsNullOrEmpty(fileName))
             {
                 return HkSdk.OpenSDK_CapturePicture(_sessionId, fileName) == 0;
             }
@@ -113,14 +119,18 @@ namespace MonitorViewer
             switch (msgType)
             {
                 case 20:
-                    JObject obj = (JObject)JsonConvert.DeserializeObject(info);
-                    Console.WriteLine(obj);
+                    PlayBackSearchResults = JsonConvert.DeserializeObject<PlayBackSearchResult>(info);
+                    OnSearchPlaybackGetResult?.Invoke(PlayBackSearchResults);
+                    Debug.WriteLine(info);
                     break;
                 case 3:
                     break;
                 case 4:
                     break;
                 case 5:
+                    break;
+                default:
+                    Debug.WriteLine(info);
                     break;
             }
 
@@ -129,11 +139,9 @@ namespace MonitorViewer
 
         private static int GetAccessToken()
         {
-            IntPtr iMessage;
-            int iLength;
             var jsonStr = BuildParams("token");
 
-            var result = HkSdk.OpenSDK_HttpSendWithWait(ApiUrl, jsonStr, "", out iMessage, out iLength);
+            var result = HkSdk.OpenSDK_HttpSendWithWait(ApiUrl, jsonStr, "", out var iMessage, out var iLength);
 
             var returnStr = Marshal.PtrToStringAnsi(iMessage, iLength);
 
@@ -183,7 +191,7 @@ namespace MonitorViewer
 
         private static string GetMd5(string str)
         {
-            if (string.IsNullOrWhiteSpace(str))
+            if (string.IsNullOrEmpty(str))
             {
                 return string.Empty;
             }
@@ -201,9 +209,7 @@ namespace MonitorViewer
 
             do
             {
-                IntPtr iMessage;
-                int iLength;
-                result = HkSdk.OpenSDK_Data_GetDevList(AccessToken, page, 256, out iMessage, out iLength);
+                result = HkSdk.OpenSDK_Data_GetDevList(AccessToken, page, 256, out var iMessage, out int _);
                 var resultStr = Marshal.PtrToStringAnsi(iMessage);
 
                 if (result != 0) return result;
@@ -232,6 +238,39 @@ namespace MonitorViewer
 
         public static int StartPlay(IntPtr handleIntPtr, string cameraId, string safeKey)
         => HkSdk.OpenSDK_StartRealPlay(_sessionId, handleIntPtr, cameraId, AccessToken, _playLever, safeKey, AppKey, 0);
+
+        public static int StartPlayBack(IntPtr handleIntPtr, string cameraId, string safeKey, string startTime,
+            string endTime)
+            => HkSdk.OpenSDK_StartPlayBack(_sessionId, handleIntPtr, cameraId, AccessToken, safeKey, startTime, endTime, AppKey, 0);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handleIntPtr"></param>
+        /// <param name="cameraId"></param>
+        /// <param name="channelNumber"></param>
+        /// <param name="safeKey"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
+        public static int StartPlayBackEx(IntPtr handleIntPtr, string cameraId, int channelNumber, string safeKey, string startTime,
+            string endTime)
+            => HkSdk.OpenSDK_StartPlayBackEx(_sessionId, handleIntPtr, cameraId, channelNumber, safeKey, startTime, endTime);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cameraId"></param>
+        /// <param name="channelNumber"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
+        public static int StartSearchEx(string cameraId, int channelNumber, string startTime,
+            string endTime)
+            => HkSdk.OpenSDK_StartSearchEx(_sessionId, cameraId, channelNumber, startTime, endTime);
+
+        public static int StartSearch(string cameraId, string startTime, string endTime)
+            => HkSdk.OpenSDK_StartSearch(_sessionId, cameraId, AccessToken, startTime, endTime, 0);
 
         public static int StopPlay()
         {
@@ -275,5 +314,11 @@ namespace MonitorViewer
 
             return cameraIdObjects;
         }
+
+        public static int GetLastErrorCode()
+            => HkSdk.OpenSDK_GetLastErrorCode();
+
+        public static string GetLastErrorDesc()
+            => HkSdk.OpenSDK_GetLastErrorDesc();
     }
 }
