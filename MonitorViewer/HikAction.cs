@@ -243,6 +243,9 @@ namespace MonitorViewer
             string endTime)
             => HkSdk.OpenSDK_StartPlayBack(_sessionId, handleIntPtr, cameraId, AccessToken, safeKey, startTime, endTime, AppKey, 0);
 
+        public static int StopPlayBack()
+            => HkSdk.OpenSDK_StopPlayBack(_sessionId, 0);
+
         /// <summary>
         /// 
         /// </summary>

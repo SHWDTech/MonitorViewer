@@ -102,6 +102,9 @@ namespace MonitorViewer
         public static extern int OpenSDK_StartPlayBack(IntPtr sid, IntPtr playWnd, string cameraId, string token, string safeKey, string startTime,
             string stopTime, string appKey, uint pNscbMsg);
 
+        [DllImport(@"OpenNetStream.dll")]
+        public static extern int OpenSDK_StopPlayBack(IntPtr sid, uint pNscbMsg);
+
         //回调函数格式
         public delegate void OpenSdkDataCallBack(CallBackDateType dateType, IntPtr dateContent, int dataLen, string pUser);
 

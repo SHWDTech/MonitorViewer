@@ -262,6 +262,9 @@ namespace MonitorViewer
             return ret;
         }
 
+        public int StopPlayBack()
+            => HikAction.StopPlayBack();
+
         private void StartDisplay()
         {
             var thread = new Thread(() =>
