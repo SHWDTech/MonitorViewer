@@ -304,18 +304,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8427D24D37BF4D2D80AB7C31118BF886"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A814EC6489D9BDB6A323EE70BAC13E84"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_BE45B357AE7D439FA3CA467C311D02D7"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -323,6 +311,18 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_87E35DC1DE9A456FBD2C9395B3ED1101"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8427D24D37BF4D2D80AB7C31118BF886"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A814EC6489D9BDB6A323EE70BAC13E84"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -1457,15 +1457,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WdMonitorView"
-        "ProductCode" = "8:{DF8CEFA9-C199-4BCD-AE02-C2D262EC0CDA}"
-        "PackageCode" = "8:{0A6D8299-5B5B-4468-931D-A005205C9E63}"
+        "ProductCode" = "8:{E925CE6B-2DDE-4BF0-A117-E219D16799C0}"
+        "PackageCode" = "8:{C39FAA36-5888-484F-8D24-95A5D855C79F}"
         "UpgradeCode" = "8:{D057ADD1-4BE6-45D8-963E-3F8EA4038577}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.15"
+        "ProductVersion" = "8:1.0.17"
         "Manufacturer" = "8:SHWDTech"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
