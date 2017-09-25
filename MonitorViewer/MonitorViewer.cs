@@ -11,7 +11,6 @@ using TestActiveXControl;
 namespace MonitorViewer
 {
     [Guid("41353907-A6CF-4BDF-9AE0-EB06F8C48414"), ComVisible(true)]
-
     public partial class MonitorViewer : UserControl, IObjectSafety
     {
         public MonitorViewer()

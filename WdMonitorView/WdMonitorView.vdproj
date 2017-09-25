@@ -177,6 +177,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_8427D24D37BF4D2D80AB7C31118BF886"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_87E35DC1DE9A456FBD2C9395B3ED1101"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -190,7 +196,7 @@
         "Entry"
         {
         "MsmKey" = "8:_A814EC6489D9BDB6A323EE70BAC13E84"
-        "OwnerKey" = "8:_D716D55B25D94E9EB443C0173707F59E"
+        "OwnerKey" = "8:_8427D24D37BF4D2D80AB7C31118BF886"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -238,12 +244,6 @@
         "Entry"
         {
         "MsmKey" = "8:_CE47A41515D242D29D924E01CB50EC22"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D716D55B25D94E9EB443C0173707F59E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -298,13 +298,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A814EC6489D9BDB6A323EE70BAC13E84"
+        "OwnerKey" = "8:_F6CB54DA62CC436992306296C5E38F78"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_87E35DC1DE9A456FBD2C9395B3ED1101"
+        "OwnerKey" = "8:_8427D24D37BF4D2D80AB7C31118BF886"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A814EC6489D9BDB6A323EE70BAC13E84"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -316,13 +322,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F6CB54DA62CC436992306296C5E38F78"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D716D55B25D94E9EB443C0173707F59E"
+        "OwnerKey" = "8:_87E35DC1DE9A456FBD2C9395B3ED1101"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -407,7 +407,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.5"
+                "FrameworkVersion" = "8:.NETFramework,Version=v2.0"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=395269"
                 }
@@ -1457,15 +1457,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WdMonitorView"
-        "ProductCode" = "8:{AA8027BC-6BE3-4561-8AC6-277FB7EDD106}"
-        "PackageCode" = "8:{F5641A9E-C053-4507-B77B-36EBEA8120A8}"
+        "ProductCode" = "8:{DF8CEFA9-C199-4BCD-AE02-C2D262EC0CDA}"
+        "PackageCode" = "8:{0A6D8299-5B5B-4468-931D-A005205C9E63}"
         "UpgradeCode" = "8:{D057ADD1-4BE6-45D8-963E-3F8EA4038577}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.14"
+        "ProductVersion" = "8:1.0.15"
         "Manufacturer" = "8:SHWDTech"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1977,7 +1977,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D716D55B25D94E9EB443C0173707F59E"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8427D24D37BF4D2D80AB7C31118BF886"
             {
             "SourcePath" = "8:..\\MonitorViewer\\obj\\x86\\Release\\MonitorViewer.dll"
             "TargetName" = "8:"
@@ -1996,8 +1996,8 @@
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:Release|x86"
+            "ProjectOutputGroupRegister" = "3:2"
+            "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{E6B0BE20-79C3-4C84-B75B-C2472EBCA72D}"
             "ShowKeyOutput" = "11:TRUE"
