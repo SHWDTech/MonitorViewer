@@ -255,6 +255,23 @@ namespace MonitorViewer
             return ret;
         }
 
+        private void StartMonitor(object sender, EventArgs e)
+        {
+            var ret = StartMonitor();
+            if (ret == 0)
+            {
+                SetContrilStatus(false);
+            }
+        }
+
+        private void SetContrilStatus(bool status)
+        {
+            btnStopRealPlay.Enabled = btnPtzUp.Enabled =
+                btnPtzDwon.Enabled = btnPtzLeft.Enabled =
+                    btnPtzRight.Enabled = status;
+            btnStartRealPlay.Enabled = !status;
+        }
+
         public int StartPlayBack(string startTime, string endTime)
         {
             var ret = HikAction.StartPlayBack(ViewerBox.Handle, _cameraId, HikAction.SafeKey,
@@ -308,6 +325,40 @@ namespace MonitorViewer
             }
 
             return -100;
+        }
+
+        private void StopMonitor(object sender, EventArgs e)
+        {
+            var ret = StopMonitor();
+            if (ret == 0)
+            {
+                SetContrilStatus(true);
+            }
+        }
+
+        private void PtzUp(object sender, MouseEventArgs e)
+        {
+            ControlPlatform("UP");
+        }
+
+        private void PtzDown(object sender, MouseEventArgs e)
+        {
+            ControlPlatform("DOWN");
+        }
+
+        private void PtzLeft(object sender, MouseEventArgs e)
+        {
+            ControlPlatform("LEFT");
+        }
+
+        private void PtzRight(object sender, MouseEventArgs e)
+        {
+            ControlPlatform("RIGHT");
+        }
+
+        private void PtzStop(object sender, MouseEventArgs e)
+        {
+            StopControlPlatform();
         }
 
         /// <summary>
