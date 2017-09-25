@@ -352,11 +352,6 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
-                    {
-                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
-                    }
                 }
             }
         }
@@ -1463,7 +1458,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WdMonitorView"
         "ProductCode" = "8:{AA8027BC-6BE3-4561-8AC6-277FB7EDD106}"
-        "PackageCode" = "8:{B75899CC-DE3E-4B98-AFAA-9D7633C263C9}"
+        "PackageCode" = "8:{F5641A9E-C053-4507-B77B-36EBEA8120A8}"
         "UpgradeCode" = "8:{D057ADD1-4BE6-45D8-963E-3F8EA4038577}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
