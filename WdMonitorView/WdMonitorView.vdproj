@@ -304,6 +304,24 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F6CB54DA62CC436992306296C5E38F78"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BE45B357AE7D439FA3CA467C311D02D7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_87E35DC1DE9A456FBD2C9395B3ED1101"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_A814EC6489D9BDB6A323EE70BAC13E84"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -944,6 +962,11 @@
             "AssemblyAsmDisplayName" = "8:MFCM90U, Version=9.0.21022.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
+                    "_87E35DC1DE9A456FBD2C9395B3ED1101"
+                    {
+                    "Name" = "8:mfcm90u.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:D:\\WorkBench\\海康威视\\Win32_v3.1.1.build20170920\\lib\\win32\\Microsoft.VC90.MFC\\mfcm90u.dll"
             "TargetName" = "8:"
@@ -1041,6 +1064,11 @@
             "AssemblyAsmDisplayName" = "8:MFCM90, Version=9.0.21022.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
+                    "_BE45B357AE7D439FA3CA467C311D02D7"
+                    {
+                    "Name" = "8:mfcm90.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:D:\\WorkBench\\海康威视\\Win32_v3.1.1.build20170920\\lib\\win32\\Microsoft.VC90.MFC\\mfcm90.dll"
             "TargetName" = "8:"
@@ -1327,6 +1355,11 @@
             "AssemblyAsmDisplayName" = "8:msvcm90, Version=9.0.21022.8, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
+                    "_F6CB54DA62CC436992306296C5E38F78"
+                    {
+                    "Name" = "8:msvcm90.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:D:\\WorkBench\\海康威视\\Win32_v3.1.1.build20170920\\lib\\win32\\Microsoft.VC90.CRT\\msvcm90.dll"
             "TargetName" = "8:"
@@ -1424,15 +1457,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WdMonitorView"
-        "ProductCode" = "8:{77C5EE78-B74B-4B4F-A2D3-2E8CD82FFD46}"
-        "PackageCode" = "8:{38323A3E-E55E-4326-AEA0-AAD2F6530EBF}"
+        "ProductCode" = "8:{82EB14DB-04B5-4699-BF17-44779153CF12}"
+        "PackageCode" = "8:{75ADBAA8-78A5-4CCD-A880-0210118367DC}"
         "UpgradeCode" = "8:{D057ADD1-4BE6-45D8-963E-3F8EA4038577}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.1.1"
+        "ProductVersion" = "8:1.1.9"
         "Manufacturer" = "8:SHWDTech"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

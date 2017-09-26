@@ -17,6 +17,7 @@ namespace MonitorViewer
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
+            cmbFiles.DisplayMember = "Text";
             ViewerBox.Paint += WdCameraViewerPaint;
             HikAction.OnSearchPlaybackGetResult += OnGetSearchResult;
         }
@@ -261,6 +262,7 @@ namespace MonitorViewer
 
         private void StartMonitor(object sender, EventArgs e)
         {
+            if (_isPlaybacking) return;
             var ret = StartMonitor();
             if (ret == 0)
             {
@@ -420,18 +422,22 @@ namespace MonitorViewer
                 for (var i = 0; i < args.FileSize; i++)
                 {
                     var file = args.FileList[i];
-                    cmbFiles.Items.Add($"{file.StartTime} - {file.EndTime}");
+                    cmbFiles.Items.Add(new SearchItem($"{file.StartTime} - {file.EndTime}", file));
                 }
                 cmbFiles.SelectedIndex = 0;
-                btnPlayBack.Enabled = true;
+                if (!_isPrewing)
+                {
+                    btnPlayBack.Enabled = true;
+                }
             }
         }
 
         private void PlayBackControl(object sender, EventArgs e)
         {
+            if (_isPrewing || !(cmbFiles.SelectedItem is SearchItem)) return;
             if (!_isPlaybacking)
             {
-                var item = HikAction.PlayBackSearchResults.FileList[cmbFiles.SelectedIndex];
+                var item = ((SearchItem) cmbFiles.SelectedItem).Info;
                 var ret = StartPlayBack(item.StartTime, item.EndTime);
                 _isPlaybacking = ret == 0;
                 btnStartRealPlay.Enabled = !_isPlaybacking;
@@ -511,14 +517,14 @@ namespace MonitorViewer
 
     class SearchItem
     {
-        public SearchItem(string text, int index)
+        public SearchItem(string text, PlaybackFileInfo info)
         {
             Text = text;
-            Index = index;
+            Info = info;
         }
 
         public string Text { get; set; }
 
-        public int Index { get; set; }
+        public PlaybackFileInfo Info { get; set; }
     }
 }
