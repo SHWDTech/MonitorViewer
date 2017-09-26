@@ -413,6 +413,7 @@ namespace MonitorViewer
             var start = $"{dtpStart.Value:yyyy-MM-dd} 00:00:00";
             var end = $"{dtpEnd.Value:yyyy-MM-dd} 23:59:59";
             StartSearch(start, end);
+            cmbFiles.Items.Clear();
         }
 
         private void OnGetSearchResult(PlayBackSearchResult args)
