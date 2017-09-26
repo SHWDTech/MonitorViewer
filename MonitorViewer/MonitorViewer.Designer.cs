@@ -35,12 +35,26 @@
             this.btnPtzDwon = new System.Windows.Forms.Button();
             this.btnPtzLeft = new System.Windows.Forms.Button();
             this.btnPtzRight = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnPlayBack = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmbFiles = new System.Windows.Forms.ComboBox();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dtpEnd = new System.Windows.Forms.DateTimePicker();
+            this.dtpStart = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.ViewerBox)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnStartRealPlay
             // 
-            this.btnStartRealPlay.Location = new System.Drawing.Point(3, 571);
+            this.btnStartRealPlay.Location = new System.Drawing.Point(6, 19);
             this.btnStartRealPlay.Name = "btnStartRealPlay";
             this.btnStartRealPlay.Size = new System.Drawing.Size(75, 23);
             this.btnStartRealPlay.TabIndex = 1;
@@ -56,14 +70,14 @@
             this.ViewerBox.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ViewerBox.Location = new System.Drawing.Point(0, 0);
             this.ViewerBox.Name = "ViewerBox";
-            this.ViewerBox.Size = new System.Drawing.Size(800, 565);
+            this.ViewerBox.Size = new System.Drawing.Size(800, 490);
             this.ViewerBox.TabIndex = 0;
             this.ViewerBox.TabStop = false;
             // 
             // btnStopRealPlay
             // 
             this.btnStopRealPlay.Enabled = false;
-            this.btnStopRealPlay.Location = new System.Drawing.Point(84, 571);
+            this.btnStopRealPlay.Location = new System.Drawing.Point(87, 19);
             this.btnStopRealPlay.Name = "btnStopRealPlay";
             this.btnStopRealPlay.Size = new System.Drawing.Size(75, 23);
             this.btnStopRealPlay.TabIndex = 2;
@@ -74,7 +88,7 @@
             // btnPtzUp
             // 
             this.btnPtzUp.Enabled = false;
-            this.btnPtzUp.Location = new System.Drawing.Point(165, 571);
+            this.btnPtzUp.Location = new System.Drawing.Point(168, 19);
             this.btnPtzUp.Name = "btnPtzUp";
             this.btnPtzUp.Size = new System.Drawing.Size(75, 23);
             this.btnPtzUp.TabIndex = 3;
@@ -86,7 +100,7 @@
             // btnPtzDwon
             // 
             this.btnPtzDwon.Enabled = false;
-            this.btnPtzDwon.Location = new System.Drawing.Point(246, 571);
+            this.btnPtzDwon.Location = new System.Drawing.Point(249, 19);
             this.btnPtzDwon.Name = "btnPtzDwon";
             this.btnPtzDwon.Size = new System.Drawing.Size(75, 23);
             this.btnPtzDwon.TabIndex = 4;
@@ -98,7 +112,7 @@
             // btnPtzLeft
             // 
             this.btnPtzLeft.Enabled = false;
-            this.btnPtzLeft.Location = new System.Drawing.Point(327, 571);
+            this.btnPtzLeft.Location = new System.Drawing.Point(330, 19);
             this.btnPtzLeft.Name = "btnPtzLeft";
             this.btnPtzLeft.Size = new System.Drawing.Size(75, 23);
             this.btnPtzLeft.TabIndex = 5;
@@ -110,7 +124,7 @@
             // btnPtzRight
             // 
             this.btnPtzRight.Enabled = false;
-            this.btnPtzRight.Location = new System.Drawing.Point(408, 571);
+            this.btnPtzRight.Location = new System.Drawing.Point(411, 19);
             this.btnPtzRight.Name = "btnPtzRight";
             this.btnPtzRight.Size = new System.Drawing.Size(75, 23);
             this.btnPtzRight.TabIndex = 6;
@@ -119,21 +133,138 @@
             this.btnPtzRight.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PtzRight);
             this.btnPtzRight.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PtzStop);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 490);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 110);
+            this.tableLayoutPanel1.TabIndex = 7;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnStartRealPlay);
+            this.groupBox1.Controls.Add(this.btnPtzRight);
+            this.groupBox1.Controls.Add(this.btnStopRealPlay);
+            this.groupBox1.Controls.Add(this.btnPtzLeft);
+            this.groupBox1.Controls.Add(this.btnPtzUp);
+            this.groupBox1.Controls.Add(this.btnPtzDwon);
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(794, 49);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "视频预览";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.btnPlayBack);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.cmbFiles);
+            this.groupBox2.Controls.Add(this.btnSearch);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.dtpEnd);
+            this.groupBox2.Controls.Add(this.dtpStart);
+            this.groupBox2.Location = new System.Drawing.Point(3, 58);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(794, 49);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "视频回放";
+            // 
+            // btnPlayBack
+            // 
+            this.btnPlayBack.Enabled = false;
+            this.btnPlayBack.Location = new System.Drawing.Point(705, 20);
+            this.btnPlayBack.Name = "btnPlayBack";
+            this.btnPlayBack.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayBack.TabIndex = 7;
+            this.btnPlayBack.Text = "开始回放";
+            this.btnPlayBack.UseVisualStyleBackColor = true;
+            this.btnPlayBack.Click += new System.EventHandler(this.PlayBackControl);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(478, 27);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "搜索结果";
+            // 
+            // cmbFiles
+            // 
+            this.cmbFiles.FormattingEnabled = true;
+            this.cmbFiles.Location = new System.Drawing.Point(539, 21);
+            this.cmbFiles.Name = "cmbFiles";
+            this.cmbFiles.Size = new System.Drawing.Size(160, 21);
+            this.cmbFiles.TabIndex = 5;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(397, 21);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 4;
+            this.btnSearch.Text = "搜索";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.SearchFiles);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(201, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "结束时间";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "开始时间";
+            // 
+            // dtpEnd
+            // 
+            this.dtpEnd.Location = new System.Drawing.Point(262, 23);
+            this.dtpEnd.Name = "dtpEnd";
+            this.dtpEnd.Size = new System.Drawing.Size(128, 20);
+            this.dtpEnd.TabIndex = 1;
+            // 
+            // dtpStart
+            // 
+            this.dtpStart.Location = new System.Drawing.Point(67, 23);
+            this.dtpStart.Name = "dtpStart";
+            this.dtpStart.Size = new System.Drawing.Size(128, 20);
+            this.dtpStart.TabIndex = 0;
+            // 
             // MonitorViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.Controls.Add(this.btnPtzRight);
-            this.Controls.Add(this.btnPtzLeft);
-            this.Controls.Add(this.btnPtzDwon);
-            this.Controls.Add(this.btnPtzUp);
-            this.Controls.Add(this.btnStopRealPlay);
-            this.Controls.Add(this.btnStartRealPlay);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.ViewerBox);
             this.Name = "MonitorViewer";
             this.Size = new System.Drawing.Size(800, 600);
             ((System.ComponentModel.ISupportInitialize)(this.ViewerBox)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -146,5 +277,16 @@
         private System.Windows.Forms.Button btnPtzDwon;
         private System.Windows.Forms.Button btnPtzLeft;
         private System.Windows.Forms.Button btnPtzRight;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DateTimePicker dtpStart;
+        private System.Windows.Forms.DateTimePicker dtpEnd;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnPlayBack;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cmbFiles;
+        private System.Windows.Forms.Button btnSearch;
     }
 }

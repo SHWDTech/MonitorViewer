@@ -34,7 +34,7 @@
             // 
             // monitorViewer1
             // 
-            this.monitorViewer1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            //this.monitorViewer1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.monitorViewer1.Location = new System.Drawing.Point(1, 1);
             this.monitorViewer1.Name = "monitorViewer1";
             this.monitorViewer1.Size = new System.Drawing.Size(974, 653);

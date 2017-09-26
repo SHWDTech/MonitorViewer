@@ -16,7 +16,9 @@ namespace MonitorViewer
         public MonitorViewer()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
             ViewerBox.Paint += WdCameraViewerPaint;
+            HikAction.OnSearchPlaybackGetResult += OnGetSearchResult;
         }
 
         /// <summary>
@@ -40,6 +42,8 @@ namespace MonitorViewer
         private const string PicUrl = "c:\\CameraPicture";
 
         public string CurrentServer => ServerConnecter.Server;
+
+        private bool _isPlaybacking;
 
         public int Speed
         {
@@ -260,7 +264,7 @@ namespace MonitorViewer
             var ret = StartMonitor();
             if (ret == 0)
             {
-                SetContrilStatus(false);
+                SetContrilStatus(true);
             }
         }
 
@@ -269,7 +273,7 @@ namespace MonitorViewer
             btnStopRealPlay.Enabled = btnPtzUp.Enabled =
                 btnPtzDwon.Enabled = btnPtzLeft.Enabled =
                     btnPtzRight.Enabled = status;
-            btnStartRealPlay.Enabled = !status;
+            btnPlayBack.Enabled = btnStartRealPlay.Enabled = !status;
         }
 
         public int StartPlayBack(string startTime, string endTime)
@@ -332,7 +336,7 @@ namespace MonitorViewer
             var ret = StopMonitor();
             if (ret == 0)
             {
-                SetContrilStatus(true);
+                SetContrilStatus(false);
             }
         }
 
@@ -402,6 +406,48 @@ namespace MonitorViewer
         public int StartSearch(string startTime, string endTime)
             => HikAction.StartSearch(_cameraId, startTime, endTime);
 
+        private void SearchFiles(object sender, EventArgs e)
+        {
+            var start = $"{dtpStart.Value:yyyy-MM-dd} 00:00:00";
+            var end = $"{dtpEnd.Value:yyyy-MM-dd} 23:59:59";
+            StartSearch(start, end);
+        }
+
+        private void OnGetSearchResult(PlayBackSearchResult args)
+        {
+            if (args?.FileList != null && args.FileList.Length > 0)
+            {
+                for (var i = 0; i < args.FileSize; i++)
+                {
+                    var file = args.FileList[i];
+                    cmbFiles.Items.Add($"{file.StartTime} - {file.EndTime}");
+                }
+                cmbFiles.SelectedIndex = 0;
+                btnPlayBack.Enabled = true;
+            }
+        }
+
+        private void PlayBackControl(object sender, EventArgs e)
+        {
+            if (!_isPlaybacking)
+            {
+                var item = HikAction.PlayBackSearchResults.FileList[cmbFiles.SelectedIndex];
+                var ret = StartPlayBack(item.StartTime, item.EndTime);
+                _isPlaybacking = ret == 0;
+                btnStartRealPlay.Enabled = !_isPlaybacking;
+            }
+            else
+            {
+                var ret = StopPlayBack();
+                _isPlaybacking = ret != 0;
+                btnStartRealPlay.Enabled = !_isPlaybacking;
+                Thread.Sleep(100);
+                ViewerBox.Invalidate();
+            }
+
+            btnPlayBack.Text = _isPlaybacking ? "停止回放" : "开始回放";
+        }
+
         /// <summary>
         /// 拍摄照片
         /// </summary>
@@ -461,5 +507,18 @@ namespace MonitorViewer
             HkSdk.OpenSDK_FiniLib();
             base.Dispose();
         }
+    }
+
+    class SearchItem
+    {
+        public SearchItem(string text, int index)
+        {
+            Text = text;
+            Index = index;
+        }
+
+        public string Text { get; set; }
+
+        public int Index { get; set; }
     }
 }

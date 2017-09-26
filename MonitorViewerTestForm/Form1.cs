@@ -14,10 +14,6 @@ namespace MonitorViewerTestForm
         {
             monitorViewer1.SetConnectServer("yun.shweidong.com:10888");
             monitorViewer1.SetupCamera("716109446");
-
-            var start = $"{DateTime.Now:yyyy-MM-dd} 00:00:00";
-            var end = $"{DateTime.Now:yyyy-MM-dd} 23:59:59";
-            monitorViewer1.StartSearch(start, end);
         }
     }
 }
