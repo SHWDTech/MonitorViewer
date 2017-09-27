@@ -14,6 +14,7 @@ namespace MonitorViewerTestForm
         {
             monitorViewer1.SetConnectServer("yun.shweidong.com:10888");
             monitorViewer1.SetupCamera("716109446");
+            monitorViewer1.SetupDevId("115");
         }
     }
 }

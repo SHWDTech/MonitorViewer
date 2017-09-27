@@ -62,7 +62,7 @@ namespace MonitorViewer
         /// </summary>
         public static string CameraProductId { get; set; }
 
-        public static int DevId { get; set; }
+        public static int DevId { get; set; } = -1;
 
         private string _displayMessage = string.Empty;
 
@@ -292,17 +292,20 @@ namespace MonitorViewer
         {
             var thread = new Thread(() =>
             {
-                while (_isPrewing)
+                while (true)
                 {
-                    var dataXmlStr = ServerConnecter.FetchData(DevId);
-                    if (!string.IsNullOrEmpty(dataXmlStr))
+                    if (_isPrewing || DevId == -1)
                     {
-                        var data = XmlSerializerHelper.DeSerialize<DeviceRecentData>(dataXmlStr);
-                        _displayMessage =
-                            $"{"PM10".PadRight(4)}:{data.Tp} ug/m³\r\n";
+                        var dataXmlStr = ServerConnecter.FetchData(DevId);
+                        if (!string.IsNullOrEmpty(dataXmlStr))
+                        {
+                            var data = XmlSerializerHelper.DeSerialize<DeviceRecentData>(dataXmlStr);
+                            _displayMessage =
+                                $"{"PM10".PadRight(4)}:{data.Tp} ug/m³\r\n";
+                            ViewerBox.Invalidate();
+                        }
                     }
-                    ViewerBox.Invalidate();
-                    Thread.Sleep(30000);
+                    Thread.Sleep(10000);
                 }
             })
             {
