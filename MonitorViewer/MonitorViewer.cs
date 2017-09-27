@@ -226,7 +226,7 @@ namespace MonitorViewer
         {
             if (string.IsNullOrEmpty(devId)) return "-1";
             DevId = int.Parse(devId);
-            
+
             return "0";
         }
 
@@ -275,6 +275,7 @@ namespace MonitorViewer
         {
             btnStopRealPlay.Enabled = btnPtzUp.Enabled =
                 btnPtzDwon.Enabled = btnPtzLeft.Enabled =
+                btnPtzZoomin.Enabled = btnPtzZoomout.Enabled =
                     btnPtzRight.Enabled = status;
             btnPlayBack.Enabled = btnStartRealPlay.Enabled = !status;
         }
@@ -312,7 +313,7 @@ namespace MonitorViewer
             {
                 IsBackground = true
             };
-            
+
             thread.Start();
         }
 
@@ -364,6 +365,16 @@ namespace MonitorViewer
         private void PtzRight(object sender, MouseEventArgs e)
         {
             ControlPlatform("RIGHT");
+        }
+
+        private void PtzZoomout(object sender, MouseEventArgs e)
+        {
+            ControlPlatform("ZOOMOUT");
+        }
+
+        private void PtzZoomin(object sender, MouseEventArgs e)
+        {
+            ControlPlatform("ZOOMIN");
         }
 
         private void PtzStop(object sender, MouseEventArgs e)
@@ -442,7 +453,7 @@ namespace MonitorViewer
             if (_isPrewing || !(cmbFiles.SelectedItem is SearchItem)) return;
             if (!_isPlaybacking)
             {
-                var item = ((SearchItem) cmbFiles.SelectedItem).Info;
+                var item = ((SearchItem)cmbFiles.SelectedItem).Info;
                 var ret = StartPlayBack(item.StartTime, item.EndTime);
                 _isPlaybacking = ret == 0;
                 btnStartRealPlay.Enabled = !_isPlaybacking;
@@ -494,7 +505,7 @@ namespace MonitorViewer
         public string WindDirectionString(double dir)
         {
             if (dir >= 348.76 || dir <= 11.25) return "北";
-            if (dir >= 11.26 && dir<= 33.75) return "北东北";
+            if (dir >= 11.26 && dir <= 33.75) return "北东北";
             if (dir >= 33.76 && dir <= 56.25) return "东北";
             if (dir >= 56.26 && dir <= 78.75) return "东东北";
             if (dir >= 78.76 && dir <= 101.25) return "东";
