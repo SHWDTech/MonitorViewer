@@ -46,6 +46,8 @@ namespace MonitorViewer
 
         private bool _isPlaybacking;
 
+        private bool _isExisting;
+
         public int Speed
         {
             get => HikAction.Speed;
@@ -294,7 +296,7 @@ namespace MonitorViewer
         {
             var thread = new Thread(() =>
             {
-                while (true)
+                while (!_isExisting)
                 {
                     if (_isPrewing || DevId == -1)
                     {
@@ -526,6 +528,7 @@ namespace MonitorViewer
 
         public new void Dispose()
         {
+            _isExisting = true;
             StopControlPlatform();
             HkSdk.OpenSDK_FiniLib();
             base.Dispose();
