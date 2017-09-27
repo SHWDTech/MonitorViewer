@@ -65,9 +65,9 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.dtpEnd);
             this.groupBox2.Controls.Add(this.dtpStart);
-            this.groupBox2.Location = new System.Drawing.Point(3, 633);
+            this.groupBox2.Location = new System.Drawing.Point(3, 489);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1018, 64);
+            this.groupBox2.Size = new System.Drawing.Size(794, 114);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "视频回放";
@@ -75,7 +75,7 @@
             // btnPlayBack
             // 
             this.btnPlayBack.Enabled = false;
-            this.btnPlayBack.Location = new System.Drawing.Point(851, 24);
+            this.btnPlayBack.Location = new System.Drawing.Point(426, 70);
             this.btnPlayBack.Name = "btnPlayBack";
             this.btnPlayBack.Size = new System.Drawing.Size(75, 23);
             this.btnPlayBack.TabIndex = 7;
@@ -86,7 +86,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(510, 25);
+            this.label3.Location = new System.Drawing.Point(6, 69);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 6;
@@ -95,9 +95,9 @@
             // cmbFiles
             // 
             this.cmbFiles.FormattingEnabled = true;
-            this.cmbFiles.Location = new System.Drawing.Point(575, 26);
+            this.cmbFiles.Location = new System.Drawing.Point(79, 70);
             this.cmbFiles.Name = "cmbFiles";
-            this.cmbFiles.Size = new System.Drawing.Size(267, 21);
+            this.cmbFiles.Size = new System.Drawing.Size(341, 21);
             this.cmbFiles.TabIndex = 5;
             // 
             // btnSearch
@@ -153,9 +153,9 @@
             this.groupBox1.Controls.Add(this.btnPtzLeft);
             this.groupBox1.Controls.Add(this.btnPtzUp);
             this.groupBox1.Controls.Add(this.btnPtzDwon);
-            this.groupBox1.Location = new System.Drawing.Point(3, 563);
+            this.groupBox1.Location = new System.Drawing.Point(3, 419);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1018, 64);
+            this.groupBox1.Size = new System.Drawing.Size(794, 64);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "视频预览";
@@ -242,18 +242,18 @@
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1024, 700);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 600);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
             // ViewerBox
             // 
-            this.ViewerBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ViewerBox.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ViewerBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ViewerBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ViewerBox.Location = new System.Drawing.Point(3, 3);
             this.ViewerBox.Name = "ViewerBox";
-            this.ViewerBox.Size = new System.Drawing.Size(1018, 554);
+            this.ViewerBox.Size = new System.Drawing.Size(794, 410);
             this.ViewerBox.TabIndex = 0;
             this.ViewerBox.TabStop = false;
             // 
@@ -264,7 +264,7 @@
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "MonitorViewer";
-            this.Size = new System.Drawing.Size(1024, 700);
+            this.Size = new System.Drawing.Size(800, 600);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);

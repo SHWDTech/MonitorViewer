@@ -266,6 +266,7 @@ namespace MonitorViewer
             var ret = StartMonitor();
             if (ret == 0)
             {
+                StopControlPlatform();
                 SetContrilStatus(true);
             }
         }
@@ -514,6 +515,7 @@ namespace MonitorViewer
 
         public new void Dispose()
         {
+            StopControlPlatform();
             HkSdk.OpenSDK_FiniLib();
             base.Dispose();
         }
