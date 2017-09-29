@@ -278,7 +278,7 @@ namespace MonitorViewer
             btnStopRealPlay.Enabled = btnPtzUp.Enabled =
                 btnPtzDwon.Enabled = btnPtzLeft.Enabled =
                 btnPtzZoomin.Enabled = btnPtzZoomout.Enabled =
-                    btnPtzRight.Enabled = status;
+                    btnPtzRight.Enabled = btnTakePicture.Enabled = status;
             btnPlayBack.Enabled = btnStartRealPlay.Enabled = !status;
         }
 
@@ -470,6 +470,12 @@ namespace MonitorViewer
             }
 
             btnPlayBack.Text = _isPlaybacking ? "停止回放" : "开始回放";
+        }
+
+        private void TakePicture(object sender, EventArgs e)
+        {
+            if (!_isPrewing) return;
+            MessageBox.Show(CapturePicture() ? @"拍照完成" : @"拍照失败", @"提示", MessageBoxButtons.OK);
         }
 
         /// <summary>

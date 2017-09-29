@@ -48,7 +48,7 @@ namespace MonitorViewer
 
             var postJson = $"userName={MonitorViewer.CameraProductId}&base64Pic={base64}";
 
-            var requestParams = new Dictionary<string, object>() { {"requestUrl", $"UploadPicture"}, {"Content", $"{postJson}" } };
+            var requestParams = new Dictionary<string, object> { {"requestUrl", "UploadPicture"}, {"Content", $"{postJson}" } };
 
             var result = ServerRequest("POST", requestParams);
             return bool.Parse(result.Replace("\\", "").Replace("\"", ""));

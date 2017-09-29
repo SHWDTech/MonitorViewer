@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnTakePicture = new System.Windows.Forms.Button();
             this.btnPtzZoomout = new System.Windows.Forms.Button();
             this.btnPtzZoomin = new System.Windows.Forms.Button();
             this.btnStartRealPlay = new System.Windows.Forms.Button();
@@ -59,6 +60,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.btnTakePicture);
             this.groupBox1.Controls.Add(this.btnPtzZoomout);
             this.groupBox1.Controls.Add(this.btnPtzZoomin);
             this.groupBox1.Controls.Add(this.btnStartRealPlay);
@@ -73,6 +75,17 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "视频预览";
+            // 
+            // btnTakePicture
+            // 
+            this.btnTakePicture.Enabled = false;
+            this.btnTakePicture.Location = new System.Drawing.Point(654, 19);
+            this.btnTakePicture.Name = "btnTakePicture";
+            this.btnTakePicture.Size = new System.Drawing.Size(75, 23);
+            this.btnTakePicture.TabIndex = 9;
+            this.btnTakePicture.Text = "拍照";
+            this.btnTakePicture.UseVisualStyleBackColor = true;
+            this.btnTakePicture.Click += new System.EventHandler(this.TakePicture);
             // 
             // btnPtzZoomout
             // 
@@ -322,5 +335,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dtpEnd;
         private System.Windows.Forms.DateTimePicker dtpStart;
+        private System.Windows.Forms.Button btnTakePicture;
     }
 }
