@@ -20,6 +20,15 @@ namespace MonitorViewer
             cmbFiles.DisplayMember = "Text";
             ViewerBox.Paint += WdCameraViewerPaint;
             HikAction.OnSearchPlaybackGetResult += OnGetSearchResult;
+            _stopTimer = new System.Timers.Timer
+            {
+                Interval = 600000,
+                Enabled = true
+            };
+            _stopTimer.Disposed += (obj, args) =>
+            {
+                StopMonitor(null, null);
+            };
         }
 
         /// <summary>
@@ -77,6 +86,8 @@ namespace MonitorViewer
         private readonly Brush _displayBrush = Brushes.White;
 
         private bool _isPrewing;
+
+        private System.Timers.Timer _stopTimer;
 
         /// <summary>
         /// 是否已完成初始化设置
@@ -258,6 +269,7 @@ namespace MonitorViewer
             {
                 _isPrewing = true;
                 StartDisplay();
+                _stopTimer.Start();
             }
             return ret;
         }
@@ -333,6 +345,7 @@ namespace MonitorViewer
                     _isPrewing = false;
                     _displayMessage = string.Empty;
                     ViewerBox.Invalidate();
+                    _stopTimer.Stop();
                 }
                 return ret;
             }
