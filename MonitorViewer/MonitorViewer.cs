@@ -22,10 +22,10 @@ namespace MonitorViewer
             HikAction.OnSearchPlaybackGetResult += OnGetSearchResult;
             _stopTimer = new System.Timers.Timer
             {
-                Interval = 6000000,
+                Interval = 600000,
                 Enabled = true
             };
-            _stopTimer.Disposed += (obj, args) =>
+            _stopTimer.Elapsed += (obj, args) =>
             {
                 StopMonitor(null, null);
             };
