@@ -22,7 +22,7 @@ namespace MonitorViewer
             HikAction.OnSearchPlaybackGetResult += OnGetSearchResult;
             _stopTimer = new System.Timers.Timer
             {
-                Interval = 600000,
+                Interval = 6000000,
                 Enabled = true
             };
             _stopTimer.Disposed += (obj, args) =>
@@ -56,6 +56,8 @@ namespace MonitorViewer
         private bool _isPlaybacking;
 
         private bool _isExisting;
+
+        private string _executingException = string.Empty;
 
         public int Speed
         {
@@ -312,13 +314,20 @@ namespace MonitorViewer
                 {
                     if (_isPrewing || DevId == -1)
                     {
-                        var dataXmlStr = ServerConnecter.FetchData(DevId);
-                        if (!string.IsNullOrEmpty(dataXmlStr))
+                        try
                         {
-                            var data = XmlSerializerHelper.DeSerialize<DeviceRecentData>(dataXmlStr);
-                            _displayMessage =
-                                $"{"PM10".PadRight(4)}:{data.Tp} ug/m³\r\n";
-                            ViewerBox.Invalidate();
+                            var dataXmlStr = ServerConnecter.FetchData(DevId);
+                            if (!string.IsNullOrEmpty(dataXmlStr))
+                            {
+                                var data = XmlSerializerHelper.DeSerialize<DeviceRecentData>(dataXmlStr);
+                                _displayMessage =
+                                    $"{"PM10".PadRight(4)}:{data.Tp} ug/m³\r\n";
+                                ViewerBox.Invalidate();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            _executingException = ex.Message;
                         }
                     }
                     Thread.Sleep(10000);
@@ -404,6 +413,8 @@ namespace MonitorViewer
         /// <returns></returns>
         public int ControlPlatform(string dir)
         {
+            _stopTimer.Stop();
+            _stopTimer.Start();
             _ptzCommand = GetPtzCommand(dir);
             if (_ptzCommand == PTZCommand.UNKNOW)
             {
@@ -437,6 +448,8 @@ namespace MonitorViewer
 
         public int StartSearch(string startTime, string endTime)
             => HikAction.StartSearch(_cameraId, startTime, endTime);
+
+        public string GetExectingException => _executingException;
 
         private void SearchFiles(object sender, EventArgs e)
         {
